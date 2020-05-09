@@ -1,0 +1,694 @@
+{
+	"info": {
+		"_postman_id": "c9103476-a170-46a0-bb8e-10e2620f7944",
+		"name": "Turkuaz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5028ec84-5f64-4a2f-b5ee-0963a3dca028",
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.environment.set('token', response.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"admin@admin.com\",\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0877811-3e6c-422f-baaf-008778c98fd6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/auth/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customer Type",
+			"item": [
+				{
+					"name": "All Customer Types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "093a3784-71de-487b-9db2-1b4fdd7cbf51",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/customer-types",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"customer-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9fd95a52-44eb-400c-afde-e251d3cc5ce0",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Tam\",\n\t\"description\": \"asd\",\n\t\"price\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/customer-types",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"customer-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "689cabbb-4b51-43be-97f8-7c679bae2b06",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Öğrenci\",\n\t\"description\": \"asd\",\n\t\"price\": 18\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/customer-types/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"customer-types",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1284e4bf-a539-41dc-a710-b1cdf72bc007",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/customer-types/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"customer-types",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Pool Record",
+			"item": [
+				{
+					"name": "All Pool Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "226f5a39-1b78-40cc-b96e-ac92b081cb68",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/pool-records",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pool-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Pool Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "173a772e-b828-48ae-89ae-7cfe0c2c546e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/pool-records/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pool-records",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Statistics",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "65cdca38-64fc-418c-838f-86c46d4bd43b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/pool-records/statistics",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pool-records",
+								"statistics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Pool Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "15e1f229-8ee1-41fe-8c0a-45f26892771f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"records\":[\n\t\t{\n\t\t\t\"customer_type_id\": 1,\n\t\t\t\"quantity\": 2,\n\t\t\t\"price\":40\n\t\t},\n\t\t{\n\t\t\t\"customer_type_id\": 2,\n\t\t\t\"quantity\": 2,\n\t\t\t\"price\":40\n\t\t}\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/pool-records",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pool-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pool Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "875efdf1-79a5-4972-b8be-ec8f1864f373",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/pool-records/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pool-records",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Pool Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ef3cc8f0-a5d2-4c09-844b-ce579cc3dd7b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/pool-records/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pool-records",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

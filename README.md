@@ -12,5 +12,6 @@ https://github.com/cretueusebiu/laravel-vue-spa
 - run `php artisan key:generate` and `php artisan jwt:secret`
 - `php artisan migrate --seed`
 - `npm install`
+- `npm run prod`
 
-
+Postman collection file <b>Turkuaz.postman_collection.json </b>
