@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
                 {{ appName }}
@@ -12,10 +12,9 @@
 
             <div id="navbarToggler" class="collapse navbar-collapse">
                 <ul class="navbar-nav">
-                    <locale-dropdown/>
-                    <!-- <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li> -->
+                    <!--
+                        <locale-dropdown/>
+                    -->
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
@@ -96,4 +95,7 @@
 </script>
 
 <style scoped>
+    .navbar {
+        background: #fcf9ec;
+    }
 </style>

@@ -5,11 +5,11 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 // import { } from '@fortawesome/free-regular-svg-icons'
 
 import {
-    faUser, faLock, faSignOutAlt, faCog
+    faUser, faLock, faSignInAlt, faSignOutAlt, faCog
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
-    faUser, faLock, faSignOutAlt, faCog
+    faUser, faLock, faSignInAlt, faSignOutAlt, faCog
 );
 
 Vue.component('fa', FontAwesomeIcon);

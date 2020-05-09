@@ -19,3 +19,9 @@
         }
     }
 </script>
+<style scoped>
+    .main-layout {
+        background: #12d3cf;
+        min-height: 100vh;
+    }
+</style>

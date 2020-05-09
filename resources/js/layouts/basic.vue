@@ -1,5 +1,5 @@
 <template>
-    <div class="basic-layout d-flex align-items-center justify-content-center m-0 bg-white">
+    <div class="basic-layout d-flex align-items-center justify-content-center m-0">
         <child/>
     </div>
 </template>
@@ -12,7 +12,8 @@
 
 <style lang="scss">
     .basic-layout {
-        color: #636b6f;
+        background: #12d3cf;
+        color: #fcf9ec;
         height: 100vh;
         font-weight: 100;
         position: relative;
