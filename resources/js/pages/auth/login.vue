@@ -28,10 +28,6 @@
               <checkbox v-model="remember" name="remember">
                 {{ $t('remember_me') }}
               </checkbox>
-
-              <router-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
-                {{ $t('forgot_password') }}
-              </router-link>
             </div>
           </div>
 
@@ -50,7 +46,7 @@
 </template>
 
 <script>
-import Form from 'vform'
+import Form from 'vform';
 
 export default {
   middleware: 'guest',
@@ -61,7 +57,7 @@ export default {
 
   data: () => ({
     form: new Form({
-      email: '',
+      email: 'admin@admin.com',
       password: ''
     }),
     remember: false
@@ -70,19 +66,19 @@ export default {
   methods: {
     async login () {
       // Submit the form.
-      const { data } = await this.form.post('/api/login')
+      const { data } = await this.form.post('/api/login');
 
       // Save the token.
       this.$store.dispatch('auth/saveToken', {
         token: data.token,
         remember: this.remember
-      })
+      });
 
       // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser')
+      await this.$store.dispatch('auth/fetchUser');
 
       // Redirect home.
-      this.$router.push({ name: 'home' })
+      this.$router.push({ name: 'home' });
     }
   }
 }

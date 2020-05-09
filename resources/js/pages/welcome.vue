@@ -7,7 +7,7 @@
         </router-link>
       </template>
       <template v-else>
-        <router-link :to="{ name: 'login' }">
+        <router-link class="btn btn-primary text-white p-2" :to="{ name: 'login' }">
           {{ $t('login') }}
         </router-link>
       </template>

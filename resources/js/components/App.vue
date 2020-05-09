@@ -38,7 +38,7 @@ export default {
   metaInfo () {
     return {
       title: 'Turkuaz Havuz',
-      titleTemplate: `%s · Turkuaz`
+      titleTemplate: `%s · Turkuaz Havuz`
     }
   },
 

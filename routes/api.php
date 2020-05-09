@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');
 
-//    Route::get('/user', 'Auth\UserController@current');
+    Route::get('/user', 'Auth\UserController@current');
 //    Route::patch('settings/profile', 'Settings\ProfileController@update');
 //    Route::patch('settings/password', 'Settings\PasswordController@update');
 });
