@@ -15,15 +15,15 @@ const getters = {
 
 // mutations
 const mutations = {
-    [types.SET_LOCALE] (state, { locale }) {
+    [types.SET_LOCALE](state, {locale}) {
         state.locale = locale;
     }
 };
 
 // actions
 const actions = {
-    setLocale ({ commit }, { locale }) {
-        commit(types.SET_LOCALE, { locale });
+    setLocale({commit}, {locale}) {
+        commit(types.SET_LOCALE, {locale});
 
         localStorage.setItem('locale', locale);
     }
