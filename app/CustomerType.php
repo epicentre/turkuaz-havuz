@@ -10,4 +10,6 @@ class CustomerType extends Model
     use SoftDeletes;
 
     protected $table = 'customer_types';
+
+    protected $guarded = ['id'];
 }

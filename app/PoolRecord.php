@@ -8,10 +8,14 @@ class PoolRecord extends Model
 {
     protected $table = 'pool_records';
 
-    public $timestamps = false;
+    protected $guarded = ['id'];
 
     protected $casts = [
-        'entry_date' => 'datetime',
-        'exit_date' => 'datetime'
+        'day' => 'date'
     ];
+
+    public function detail()
+    {
+        return $this->hasMany('App\PoolRecordDetail', 'pool_record_id');
+    }
 }

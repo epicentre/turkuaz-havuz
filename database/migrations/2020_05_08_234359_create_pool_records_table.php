@@ -15,11 +15,12 @@ class CreatePoolRecordsTable extends Migration
     {
         Schema::create('pool_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_type_id')->index();
-            $table->unsignedSmallInteger('quantity');
-            $table->unsignedFloat('price');
-            $table->dateTime('entry_date');
-            $table->dateTime('exit_date')->nullable();
+            $table->string('voucher_no')->index();
+            $table->unsignedTinyInteger('customer_count');
+            $table->unsignedFloat('total_price');
+            $table->unsignedTinyInteger('status')->default(0)->comment('0=> Giriş, 1=> Çıkış');
+            $table->date('day')->index();
+            $table->timestamps();
         });
     }
 
