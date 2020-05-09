@@ -24,6 +24,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('auth/user', 'Auth\UserController@current');
     Route::post('auth/logout', 'Auth\LoginController@logout');
 
+    Route::get('pool-records/statistics', 'PoolRecordController@getStatistics');
     Route::apiResources([
         'customer-types' => 'CustomerTypeController',
         'pool-records' => 'PoolRecordController',

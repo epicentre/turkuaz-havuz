@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\API;
 
+use App\CustomerType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PoolRecordResource;
 use App\PoolRecord;
+use App\PoolRecordDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 
 class PoolRecordController extends Controller
 {
     public function index()
     {
-        $pool_records = PoolRecord::paginate(20);
+        $pool_records = PoolRecord::orderBy('id', 'desc')->paginate(20);
 
         return PoolRecordResource::collection($pool_records);
     }
@@ -90,4 +93,25 @@ class PoolRecordController extends Controller
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
+    public function getStatistics(Request $request)
+    {
+        $customer_types = CustomerType::all();
+        $select_raw_string = 'DATE(entry_date) AS day';
+        foreach ($customer_types as $customer_type) {
+            $select_raw_string .= ',SUM(CASE WHEN (customer_type_id = ' . $customer_type->id . ' AND exit_date IS NULL) then quantity else 0 end) as type_' . $customer_type->id . '_active_total';
+            $select_raw_string .= ',SUM(CASE WHEN (customer_type_id = ' . $customer_type->id . ') then quantity else 0 end) as type_' . $customer_type->id . '_total';
+        }
+        $select_raw_string .= ',SUM(quantity) AS total';
+
+        $statistics = PoolRecordDetail::selectRaw($select_raw_string)->when($request->day, function ($query) use ($request) {
+            $query->whereDate('entry_date', $request->day);
+        })->groupBy('day')->orderBy('day', 'desc')->paginate(20);
+
+        $data = [
+            'customer_types' => $customer_types,
+            'statistics' => $statistics
+        ];
+
+        return response()->json($data);
+    }
 }
