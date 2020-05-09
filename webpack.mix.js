@@ -11,9 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/dist/js')
-    .sass('resources/sass/app.scss', 'public/dist/css');
+mix.js('resources/js/app.js', 'public/dist/js').sass('resources/sass/app.scss', 'public/dist/css');
 
 if (mix.inProduction()) {
     mix.version();
 }
+
+mix.babelConfig({
+    plugins: ['@babel/plugin-syntax-dynamic-import'],
+});
+
+mix.webpackConfig({
+    output: {
+        chunkFilename: 'dist/js/chunk-[name].js',
+    },
+});
