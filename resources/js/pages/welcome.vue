@@ -2,7 +2,7 @@
     <div>
         <div class="top-right links">
             <template v-if="authenticated">
-                <router-link :to="{ name: 'home' }">
+                <router-link class="btn btn-primary text-white p-2" :to="{ name: 'home' }">
                     {{ $t('home') }}
                 </router-link>
             </template>

@@ -95,17 +95,30 @@ class PoolRecordController extends Controller
 
     public function getStatistics(Request $request)
     {
+        $is_today = $request->today === 'true';
         $customer_types = CustomerType::all();
         $select_raw_string = 'DATE(entry_date) AS day';
         foreach ($customer_types as $customer_type) {
-            $select_raw_string .= ',SUM(CASE WHEN (customer_type_id = ' . $customer_type->id . ' AND exit_date IS NULL) then quantity else 0 end) as type_' . $customer_type->id . '_active_total';
+            // Eğer bugünün verisi alınacaksa aktif kişi sayısı alınıyor.
+            if ($is_today) {
+                $select_raw_string .= ',SUM(CASE WHEN (customer_type_id = ' . $customer_type->id . ' AND exit_date IS NULL) then quantity else 0 end) as type_' . $customer_type->id . '_active_total';
+            }
+
             $select_raw_string .= ',SUM(CASE WHEN (customer_type_id = ' . $customer_type->id . ') then quantity else 0 end) as type_' . $customer_type->id . '_total';
+        }
+        if ($is_today) {
+            $select_raw_string .= ',SUM(CASE WHEN (exit_date IS NULL) then quantity else 0 end) as active_total';
         }
         $select_raw_string .= ',SUM(quantity) AS total';
 
-        $statistics = PoolRecordDetail::selectRaw($select_raw_string)->when($request->day, function ($query) use ($request) {
-            $query->whereDate('entry_date', $request->day);
-        })->groupBy('day')->orderBy('day', 'desc')->paginate(20);
+        $statistics_query = PoolRecordDetail::query();
+        $statistics_query->selectRaw($select_raw_string);
+        // Eğer bugün için veri isteniyorsa tek veri hepsi ise paginate edilmiş şekilde gönderiliyor.
+        if ($is_today) {
+            $statistics = $statistics_query->whereDate('entry_date', now()->format('Y-m-d'))->groupBy('day')->first();
+        } else {
+            $statistics = $statistics_query->groupBy('day')->orderBy('day', 'desc')->paginate(20);
+        }
 
         $data = [
             'customer_types' => $customer_types,
