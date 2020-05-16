@@ -19,8 +19,8 @@ class PoolRecordDetailResource extends JsonResource
             'customer_type' => new CustomerTypeResource($this->whenLoaded('customerType')),
             'quantity' => $this->quantity,
             'price' => $this->price,
-            'entry_date' => $this->entry_date,
-            'exit_date' => $this->exit_date
+            'entry_date' => $this->entry_date->format('d-m-Y H:i:s'),
+            'exit_date' => $this->exit_date->format('d-m-Y H:i:s')
         ];
     }
 }
