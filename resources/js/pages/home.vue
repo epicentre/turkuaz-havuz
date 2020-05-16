@@ -1,6 +1,9 @@
 <template>
     <div>
         <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" @click="showCreateForm">Yeni Kayıt Oluştur</button>
+            </div>
             <div class="col-md-12">
                 <h4 class="mt-5 font-weight-bold text-center">
                     Günlük Sayılar
@@ -41,13 +44,41 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="addPoolRecordModal" tabindex="-1" role="dialog" aria-labelledby="addPoolRecordModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPoolRecordModalTitle">Yeni Kayıt Oluştur</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <customer-type-element v-for="data in formData" :key="data.id" :initial-data="data" />
+                        <p>
+                            Toplam Kişi Sayısı: <b>{{ formTotal.customerCount }}</b>
+                            <br>
+                            Toplam Tutar: <b>{{ formTotal.totalPrice }}₺</b>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                        <button type="button" class="btn btn-primary" @click="postForm">Oluştur</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
     import { mapGetters, mapActions } from 'vuex';
+    import CustomerTypeElement from "../components/CustomerTypeElement";
 
     export default {
+        components: {CustomerTypeElement},
         middleware: 'auth',
         metaInfo() {
             return {title: this.$t('home')}
@@ -55,7 +86,9 @@
         computed: {
             ...mapGetters({
                 customerTypes: 'statistics/customerTypes',
-                statistics: 'statistics/statistics'
+                statistics: 'statistics/statistics',
+                formData: 'poolRecords/formData',
+                formTotal: 'poolRecords/formTotal',
             })
         },
         methods: {
@@ -66,6 +99,22 @@
             getTotalStatistic(active = false) {
                 let key = `${active ? 'active_' : ''}total`;
                 return this.statistics && this.statistics.hasOwnProperty(key) ? this.statistics[key] : 0;
+            },
+            showCreateForm() {
+                this.$store.dispatch('poolRecords/createForm', {customerTypes: this.customerTypes});
+
+                $('#addPoolRecordModal').modal('show');
+            },
+            postForm() {
+                const formPostData = this.$store.getters['poolRecords/formPostData'];
+
+                axios.post('/api/pool-records', formPostData).then(response => {
+                    console.log(response);
+
+                    this['statistics/fetchStatistic']({ today: true });
+                }).catch(error => {
+                    console.error(error);
+                });
             },
             ...mapActions([
                 'statistics/fetchStatistic'

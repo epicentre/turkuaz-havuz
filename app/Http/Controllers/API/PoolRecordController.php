@@ -9,6 +9,7 @@ use App\PoolRecord;
 use App\PoolRecordDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 class PoolRecordController extends Controller
@@ -52,6 +53,10 @@ class PoolRecordController extends Controller
                 'price' => $record['price'],
                 'entry_date' => now()
             ];
+        }
+
+        if (count($pool_record_detail) < 1) {
+            throw ValidationException::withMessages(['customer_type' => 'En az 1 müşteri olmalıdır.']);
         }
 
         $pool_record = PoolRecord::create($pool_record);
