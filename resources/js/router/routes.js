@@ -12,7 +12,7 @@ export default [
         path: '/settings',
         component: page('settings/index.vue'),
         children: [
-            {path: '', redirect: {name: 'settings.profile'}},
+            {path: '', redirect: {name: 'customer_types.index'}},
             {path: 'customer-types', name: 'customer_types.index', component: page('settings/customer-types/index.vue')},
             {path: 'password', name: 'settings.password', component: page('settings/password.vue')}
         ]
