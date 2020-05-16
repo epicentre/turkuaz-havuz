@@ -30,8 +30,8 @@
                 return [
                     {
                         icon: 'user',
-                        name: this.$t('profile'),
-                        route: 'settings.profile'
+                        name: 'Müşteri Tipleri',
+                        route: 'customer_types.index'
                     },
                     {
                         icon: 'lock',
