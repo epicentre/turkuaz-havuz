@@ -21,7 +21,7 @@
                     <!-- Authenticated -->
                     <template v-if="user">
                         <li class="nav-item">
-                            <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
+                            <router-link :to="{ name: 'poolRecords' }" class="nav-link" active-class="active">
                                 Kayıtlar
                             </router-link>
                         </li>

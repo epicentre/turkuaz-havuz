@@ -1,15 +1,22 @@
 import axios from 'axios';
 import * as types from '../mutation-types';
 
+const defaultCreateFormData = () => ({
+    data : [],
+    total: {
+        customerCount: 0,
+        totalPrice: 0
+    }
+});
+
 // state
 const state = {
-    createFormData: {
-        data : [],
-        total: {
-            customerCount: 0,
-            totalPrice: 0
-        }
-    },
+    createFormData: defaultCreateFormData(),
+    poolRecords: [],
+    activePage: 1,
+    searchText: '',
+    paginationData : {},
+    poolRecord: {},
 };
 
 // getters
@@ -27,19 +34,18 @@ const getters = {
         });
 
         return data;
-    }
+    },
+    poolRecords: state => state.poolRecords,
+    paginationData: state => state.paginationData,
+    activePage: state => state.activePage,
+    searchText: state => state.searchText,
+    poolRecord: state => state.poolRecord,
 };
 
 // mutations
 const mutations = {
     [types.RESET_POOL_FORM_DATA](state) {
-        state.createFormData = {
-            data : [],
-            total: {
-                customerCount: 0,
-                totalPrice: 0
-            }
-        };
+        state.createFormData = defaultCreateFormData();
     },
 
     [types.INIT_POOL_FORM_DATA](state, {customerTypes}) {
@@ -76,7 +82,28 @@ const mutations = {
         });
 
         state.createFormData = {data: newFormData, total: newFormTotal};
-    }
+    },
+
+    [types.FETCH_POOL_RECORDS_SUCCESS](state, {data, page, searchText}) {
+        state.poolRecords = data.data;
+        state.paginationData = {...data.links, ...data.meta};
+        state.activePage = page;
+        state.searchText = searchText;
+    },
+
+    [types.FETCH_POOL_RECORDS_FAILURE](state) {
+        state.poolRecords = [];
+        state.activePage = 1;
+        state.searchText = '';
+    },
+
+    [types.FETCH_RECORD_ID_SUCCESS](state, {data}) {
+        state.poolRecord = data.data;
+    },
+
+    [types.FETCH_RECORD_ID_FAILURE](state) {
+        state.poolRecord = {};
+    },
 };
 
 // actions
@@ -97,6 +124,47 @@ const actions = {
     resetCreateFormData({commit}) {
         commit(types.RESET_POOL_FORM_DATA);
     },
+
+    async fetchRecordFromId({commit}, payload) {
+        const id = (payload && payload.hasOwnProperty('id')) ? payload.id : null;
+        if (!id) {
+            commit(types.FETCH_RECORD_ID_FAILURE);
+            return;
+        }
+        try {
+            const {data} = await axios.get(`/api/pool-records/${id}`);
+
+            commit(types.FETCH_RECORD_ID_SUCCESS, {data});
+        } catch (e) {
+            commit(types.FETCH_RECORD_ID_FAILURE);
+        }
+    },
+
+    async fetchPoolRecords({commit}, payload) {
+        const page = (payload && payload.hasOwnProperty('page')) ? payload.page : 1;
+        const searchText = (payload && payload.hasOwnProperty('searchText') && payload.searchText.trim() !== '') ? payload.searchText : '';
+        try {
+            const {data} = await axios.get(`/api/pool-records?page=${page}&searchText=${searchText}`);
+
+            commit(types.FETCH_POOL_RECORDS_SUCCESS, {data, page, searchText});
+        } catch (e) {
+            commit(types.FETCH_POOL_RECORDS_FAILURE);
+        }
+    },
+
+    async updatePoolRecord({commit}, {id}) {
+        try {
+            await axios.put(`/api/pool-records/${id}`);
+
+        } catch (e) { }
+    },
+
+    async deletePoolRecord({commit}, {id}) {
+        try {
+            await axios.delete(`/api/pool-records/${id}`);
+
+        } catch (e) { }
+    }
 };
 
 export default {

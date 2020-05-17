@@ -20,7 +20,7 @@ class PoolRecordDetailResource extends JsonResource
             'quantity' => $this->quantity,
             'price' => $this->price,
             'entry_date' => $this->entry_date->format('d-m-Y H:i:s'),
-            'exit_date' => $this->exit_date->format('d-m-Y H:i:s')
+            'exit_date' => optional($this->exit_date)->format('d-m-Y H:i:s')
         ];
     }
 }

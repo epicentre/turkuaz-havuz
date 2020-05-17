@@ -21,7 +21,7 @@ class PoolRecordResource extends JsonResource
             'customer_count' => $this->customer_count,
             'total_price' => $this->total_price,
             'status' => $this->status,
-            'day' => $this->day,
+            'day' => $this->day->format('d-m-Y'),
             'created_at' => $this->created_at->format('d-m-Y H:i:s'),
             'updated_at' => $this->updated_at->format('d-m-Y H:i:s')
         ];

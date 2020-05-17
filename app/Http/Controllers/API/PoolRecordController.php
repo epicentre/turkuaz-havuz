@@ -14,9 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PoolRecordController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pool_records = PoolRecord::orderBy('id', 'desc')->paginate(20);
+        $pool_records = PoolRecord::when(($request->searchText && trim($request->searchText) !== ''), function($query) use ($request) {
+            $query->where('voucher_no', 'like', '%' . $request->searchText .'%');
+        })->orderBy('id', 'desc')->paginate(10);
 
         return PoolRecordResource::collection($pool_records);
     }
@@ -44,7 +46,7 @@ class PoolRecordController extends Controller
                 continue;
             }
 
-            $pool_record['customer_count'] += 1;
+            $pool_record['customer_count'] += $record['quantity'];
             $pool_record['total_price'] += $record['price'];
 
             $pool_record_detail[] = [
