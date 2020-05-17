@@ -64,11 +64,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
-                        <button type="button" class="btn btn-primary" @click="postForm">Oluştur</button>
+                        <button type="button" class="btn btn-primary" @click="postForm" :disabled="hasPrintedData">Oluştur</button>
+                        <button type="button" class="btn btn-success" @click="localPrint" v-if="hasPrintedData">Yazdır</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <pool-record-print ref="print" :print-data="printData" />
     </div>
 </template>
 
@@ -83,12 +86,16 @@
         metaInfo() {
             return {title: this.$t('home')}
         },
+        data: () => ({
+            hasPrintedData: false
+        }),
         computed: {
             ...mapGetters({
                 customerTypes: 'statistics/customerTypes',
                 statistics: 'statistics/statistics',
                 formData: 'poolRecords/formData',
                 formTotal: 'poolRecords/formTotal',
+                printData: 'poolRecords/poolRecord',
             })
         },
         methods: {
@@ -101,6 +108,8 @@
                 return this.statistics && this.statistics.hasOwnProperty(key) ? this.statistics[key] : 0;
             },
             showCreateForm() {
+                this.hasPrintedData = false;
+
                 this.$store.dispatch('poolRecords/createForm', {customerTypes: this.customerTypes});
 
                 $('#addPoolRecordModal').modal('show');
@@ -109,12 +118,16 @@
                 const formPostData = this.$store.getters['poolRecords/formPostData'];
 
                 axios.post('/api/pool-records', formPostData).then(response => {
-                    console.log(response);
+                    this.hasPrintedData = true;
+                    this.$store.dispatch('poolRecords/fetchRecordFromId', {id: response.data.data.id});
 
                     this['statistics/fetchStatistic']({ today: true });
                 }).catch(error => {
                     console.error(error);
                 });
+            },
+            localPrint() {
+                this.$refs.print.print();
             },
             ...mapActions([
                 'statistics/fetchStatistic'

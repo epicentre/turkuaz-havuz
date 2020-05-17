@@ -39,6 +39,7 @@
                         <td>{{ poolRecord.day }}</td>
                         <td>
                             <router-link :to="{name: 'poolRecordShow', params: {id: poolRecord.id}}" class="btn btn-primary">Görüntüle</router-link>
+                            <button type="button" class="btn btn-success" @click="localPrint(poolRecord.id)">Yazdır</button>
                             <button v-if="poolRecord.status === 0" class="btn btn-warning" @click="localUpdatePoolRecord(poolRecord.id)">Çıkış Yap</button>
                             <button class="btn btn-danger" @click="showDeleteModal(poolRecord)">Sil</button>
                         </td>
@@ -69,6 +70,8 @@
                 </div>
             </div>
         </div>
+
+        <pool-record-print ref="print" :print-data="printData" />
     </div>
 </template>
 
@@ -94,6 +97,7 @@
             activePage: 'poolRecords/activePage',
             searchText: 'poolRecords/searchText',
             paginationData: 'poolRecords/paginationData',
+            printData: 'poolRecords/poolRecord'
         }),
 
         methods: {
@@ -124,7 +128,12 @@
                 this.localSearchText = '';
 
                 this.fetchPoolRecords({page: 1 });
-            }
+            },
+            localPrint(poolRecordId) {
+                this.$store.dispatch('poolRecords/fetchRecordFromId', {id: poolRecordId}).then(() => {
+                    this.$refs.print.print();
+                });
+            },
         },
 
         created() {
