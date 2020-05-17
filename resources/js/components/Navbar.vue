@@ -26,7 +26,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
+                            <router-link :to="{ name: 'statistics' }" class="nav-link" active-class="active">
                                 İstatistikler
                             </router-link>
                         </li>

@@ -3,8 +3,8 @@ import * as types from '../mutation-types';
 
 // state
 const state = {
-    customerTypes: null,
-    statistics: null,
+    customerTypes: {},
+    statistics: {},
 };
 
 // getters
@@ -21,8 +21,8 @@ const mutations = {
     },
 
     [types.FETCH_STATISTIC_FAILURE](state) {
-        state.customerTypes = null;
-        state.statistics = null;
+        state.customerTypes = {};
+        state.statistics = {};
     },
 };
 
@@ -30,8 +30,9 @@ const mutations = {
 const actions = {
     async fetchStatistic({commit}, payload) {
         try {
-            const {today} = payload;
-            const {data} = await axios.get(`/api/pool-records/statistics?today=${today}`);
+            const page = (payload && payload.hasOwnProperty('page')) ? payload.page : 1;
+            const today = (payload && payload.hasOwnProperty('today')) ? payload.today : false;
+            const {data} = await axios.get(`/api/pool-records/statistics?today=${today}&page=${page}`);
 
             commit(types.FETCH_STATISTIC_SUCCESS, {data});
         } catch (e) {

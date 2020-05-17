@@ -8,6 +8,7 @@ export default [
     {path: '/home', name: 'home', component: page('home.vue')},
     {path: '/pool-records', name: 'poolRecords', component: page('pool-records/index.vue')},
     {path: '/pool-records/:id', name: 'poolRecordShow', component: page('pool-records/show.vue')},
+    {path: '/statistics', name: 'statistics', component: page('statistics.vue')},
     {
         path: '/settings',
         component: page('settings/index.vue'),
