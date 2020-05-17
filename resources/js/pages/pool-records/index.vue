@@ -16,7 +16,7 @@
                         <label>Fiş No</label>
                         <input type="text" class="form-control mx-sm-3" v-model="localSearchText">
                     </div>
-                    <button type="button" class="btn btn-primary" @click="fetchPoolRecords({page: activePage, searchText: localSearchText })">Ara</button>
+                    <button type="button" class="btn btn-primary" @click="fetchPoolRecords({page: 1, searchText: localSearchText })">Ara</button>
                     <button type="button" class="btn btn-danger ml-2" @click="resetSearchText">Sıfırla</button>
                 </div>
             </div>
@@ -123,7 +123,7 @@
             resetSearchText() {
                 this.localSearchText = '';
 
-                this.fetchPoolRecords({page: this.activePage });
+                this.fetchPoolRecords({page: 1 });
             }
         },
 
