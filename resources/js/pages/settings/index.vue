@@ -35,8 +35,8 @@
                     },
                     {
                         icon: 'lock',
-                        name: this.$t('password'),
-                        route: 'settings.password'
+                        name: 'Profil',
+                        route: 'settings.profile'
                     }
                 ]
             }

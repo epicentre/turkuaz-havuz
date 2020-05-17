@@ -1,7 +1,7 @@
 <template>
-    <card :title="$t('your_password')">
+    <card title="Profil">
         <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-            <alert-success :form="form" :message="$t('password_updated')"/>
+            <alert-success :form="form" message="Bilgilerin başarıyla güncellendi."/>
 
             <!-- Name -->
             <div class="form-group row">
@@ -88,17 +88,10 @@
         },
 
         methods: {
-            /*
             async update() {
-                const {data} = await this.form.patch('/api/settings/profile')
+                const {data} = await this.form.post('/api/auth/user');
 
-                this.$store.dispatch('auth/updateUser', {user: data})
-            }
-             */
-            async update() {
-                await this.form.patch('/api/settings/password')
-
-                this.form.reset()
+                this.$store.dispatch('auth/updateUser', {user: data.data})
             }
         }
     }

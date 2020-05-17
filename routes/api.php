@@ -16,12 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:api')->group(function () {
     Route::post('auth/login', 'Auth\LoginController@login');
-//    Route::patch('settings/profile', 'Settings\ProfileController@update');
-//    Route::patch('settings/password', 'Settings\PasswordController@update');
 });
 
 Route::middleware('auth:api')->group(function () {
     Route::get('auth/user', 'Auth\UserController@current');
+    Route::post('auth/user', 'Auth\UserController@update');
     Route::post('auth/logout', 'Auth\LoginController@logout');
 
     Route::get('pool-records/statistics', 'PoolRecordController@getStatistics');
