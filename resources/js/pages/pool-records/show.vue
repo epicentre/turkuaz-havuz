@@ -18,7 +18,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="data in poolRecord.detail">
-                        <td scope="row">{{ data.customer_type.name }}</td>
+                        <td scope="row">{{ data.customer_type && data.customer_type.name }}</td>
                         <td>{{ data.quantity }}</td>
                         <td>{{ data.price }} ₺</td>
                         <td>{{ data.entry_date }}</td>

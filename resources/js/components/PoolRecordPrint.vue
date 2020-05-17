@@ -22,7 +22,7 @@
                         </thead>
                         <tbody>
                         <tr v-for="detail in printData.detail" style="border-bottom: 1px solid #000;">
-                            <td>{{ detail.customer_type.name }}</td>
+                            <td>{{ detail.customer_type && detail.customer_type.name }}</td>
                             <td>{{ detail.quantity }}</td>
                             <td>{{ detail.price }}₺</td>
                         </tr>
