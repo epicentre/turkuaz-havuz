@@ -1,6 +1,9 @@
 <template>
     <div>
         <card :title="cardTitle">
+            <div class="d-flex justify-content-end mb-2">
+                <button type="button" class="btn btn-primary" @click="createCustomerType">Yeni Ekle</button>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
@@ -29,18 +32,18 @@
         </card>
 
         <!-- Edit Modal -->
-        <div class="modal fade" id="customerTypeEditModal" tabindex="-1" role="dialog" aria-labelledby="customerTypeEditModalTitle" aria-hidden="true">
+        <div class="modal fade" id="customerTypeModal" tabindex="-1" role="dialog" aria-labelledby="customerTypeModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="customerTypeEditModalTitle">Düzenle</h5>
+                        <h5 class="modal-title" id="customerTypeModalTitle">Müşteri Tipi</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="updateCustomerType" @keydown="form.onKeydown($event)">
+                    <form @submit.prevent="submitForm" @keydown="form.onKeydown($event)">
                         <div class="modal-body">
-                            <alert-success :form="form" message="Başarıyla güncellendi."/>
+                            <alert-success :form="form" message="İşleminiz başarıyla gerçekleşti."/>
 
                             <!-- Name -->
                             <div class="form-group row">
@@ -67,7 +70,7 @@
                                 <label class="col-md-3 col-form-label text-md-right">Fiyat</label>
                                 <div class="col-md-7">
                                     <input v-model="form.price" :class="{ 'is-invalid': form.errors.has('price') }"class="form-control"
-                                           type="number" min="1" step="any" name="price">
+                                           type="number" min="0" step="any" name="price">
                                     <has-error :form="form" field="price"/>
                                 </div>
                             </div>
@@ -76,7 +79,7 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
                             <!-- Submit Button -->
                             <v-button :loading="form.busy" type="success">
-                                Güncelle
+                                Kaydet
                             </v-button>
                         </div>
                     </form>
@@ -128,7 +131,8 @@
                 description: '',
                 price: '',
             }),
-            cardTitle: 'Müşteri Tipleri'
+            cardTitle: 'Müşteri Tipleri',
+            formType: 'create'
         }),
 
         computed: mapGetters({
@@ -137,18 +141,41 @@
 
         methods: {
             editCustomerType(customerType) {
+                this.formType = 'update';
                 this.activeCustomerType = customerType;
 
                 this.form.keys().forEach(key => {
                     this.form[key] = this.activeCustomerType[key];
                 });
 
-                jQuery('#customerTypeEditModal').modal('show');
+                jQuery('#customerTypeModal').modal('show');
             },
             async updateCustomerType() {
                 await this.form.put(`/api/customer-types/${this.activeCustomerType.id}`);
 
                 this['customerTypes/fetchCustomerTypes']();
+            },
+            createCustomerType() {
+                this.formType = 'create';
+                this.form.keys().forEach(key => {
+                    this.form[key] = '';
+                });
+
+                jQuery('#customerTypeModal').modal('show');
+            },
+            async storeCustomerType() {
+                await this.form.post(`/api/customer-types`);
+
+                this['customerTypes/fetchCustomerTypes']();
+
+                jQuery('#customerTypeModal').modal('hide');
+            },
+            async submitForm() {
+                if (this.formType === 'update') {
+                    await this.updateCustomerType();
+                } else {
+                    await this.storeCustomerType();
+                }
             },
             showDeleteModal(customerType) {
                 this.activeCustomerType = customerType;
