@@ -3,6 +3,7 @@ import Card from './Card';
 import Child from './Child';
 import Button from './Button';
 import Checkbox from './Checkbox';
+import CustomerTypeElement from "./CustomerTypeElement";
 import PoolRecordPrint from './PoolRecordPrint';
 import {HasError, AlertError, AlertSuccess} from 'vform';
 
@@ -15,6 +16,7 @@ import {HasError, AlertError, AlertSuccess} from 'vform';
     HasError,
     AlertError,
     AlertSuccess,
+    CustomerTypeElement,
     PoolRecordPrint
 ].forEach(Component => {
     Vue.component(Component.name, Component);

@@ -1,5 +1,7 @@
 import './axios';
 import './fontawesome';
-import 'bootstrap';
 
+window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');
+
+import 'bootstrap';

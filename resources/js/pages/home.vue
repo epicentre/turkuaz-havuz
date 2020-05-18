@@ -81,7 +81,6 @@
     import CustomerTypeElement from "../components/CustomerTypeElement";
 
     export default {
-        components: {CustomerTypeElement},
         middleware: 'auth',
         metaInfo() {
             return {title: this.$t('home')}
