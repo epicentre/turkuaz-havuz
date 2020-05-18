@@ -1,46 +1,33 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-primary" @click="showCreateForm">Yeni Kayıt Oluştur</button>
-            </div>
-            <div class="col-md-12">
-                <h4 class="mt-5 font-weight-bold text-center">
-                    Günlük Sayılar
-                </h4>
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-lg btn-primary" @click="showCreateForm">
+                    <fa icon="plus" />
+                    Yeni Kayıt Oluştur
+                </button>
             </div>
         </div>
-        <div class="row mt-3 pt-3" style="background-color: #eeeeee">
-            <div class="col">
-                <div class="card-group">
-                    <div class="card mb-4" v-for="customerType in customerTypes">
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">{{ customerType.name }}</h4>
-                            <p>
-                                Aktif
-                                <br>
-                                <span class="ml-2" style="font-size: 30px;">{{ getStatisticFromCustomerType(customerType.id, true) }}</span>
-                            <p>
-                                Toplam
-                                <br>
-                                <span class="ml-2" style="font-size: 30px;">{{ getStatisticFromCustomerType(customerType.id, false) }}</span>
-                            </p>
-                        </div>
+        <div class="row mt-4 justify-content-center align-items-center">
+            <div class="col-12">
+                <h2 class="text-center">
+                    Bugünün Sayıları
+                </h2>
+            </div>
+            <div class="col d-flex flex-column align-items-center justify-content-center my-2">
+                <h4 class="text-muted">Tümü</h4>
+                <div class="circle my-2">
+                    <span class="number">{{ getTotalStatistic(true) }}</span>
+                </div>
+                <h4 class="text-muted">Toplam: {{ getTotalStatistic(false) }}</h4>
+            </div>
+            <div class="col mb-4" v-for="customerType in customerTypes">
+                <div class="col-12 d-flex flex-column align-items-center justify-content-center my-2">
+                    <h4 class="text-muted">{{ customerType.name }}</h4>
+                    <div class="circle small my-2">
+                        <span class="number">{{ getStatisticFromCustomerType(customerType.id, true) }}</span>
                     </div>
-                    <div class="card mb-4">
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Toplam</h4>
-                            <p>
-                                Aktif
-                                <br>
-                                <span class="ml-2" style="font-size: 30px;">{{ getTotalStatistic(true) }}</span>
-                            <p>
-                                Toplam
-                                <br>
-                                <span class="ml-2" style="font-size: 30px;">{{ getTotalStatistic(false) }}</span>
-                            </p>
-                        </div>
-                    </div>
+                    <h4 class="text-muted">Toplam: {{ getStatisticFromCustomerType(customerType.id, false) }}</h4>
                 </div>
             </div>
         </div>
@@ -56,11 +43,17 @@
                     </div>
                     <div class="modal-body">
                         <customer-type-element v-for="data in formData" :key="data.id" :initial-data="data" />
-                        <p>
-                            Toplam Kişi Sayısı: <b>{{ formTotal.customerCount }}</b>
-                            <br>
-                            Toplam Tutar: <b>{{ formTotal.totalPrice }}₺</b>
-                        </p>
+                        <div class="row">
+                            <div class="col-4">
+                                <h5>Toplam: </h5>
+                            </div>
+                            <div class="col-4">
+                                <h5><b>{{ formTotal.customerCount }}</b></h5>
+                            </div>
+                            <div class="col-4">
+                                <h5><b>{{ formTotal.totalPrice }}₺</b></h5>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
@@ -137,3 +130,27 @@
         }
     }
 </script>
+
+<style scoped>
+    .circle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 180px;
+        height: 180px;
+        border-radius: 100%;
+        background: transparent;
+        border: 5px solid #38c172;
+    }
+
+    .circle .number {
+        font-size: 4rem;
+    }
+
+    .circle.small {
+        width: 130px;
+        height: 130px;
+        font-size: 3rem;
+    }
+</style>

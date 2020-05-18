@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark align-items-center">
         <div class="container">
             <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
                 {{ appName }}
@@ -11,13 +11,7 @@
             </button>
 
             <div id="navbarToggler" class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <!--
-                        <locale-dropdown/>
-                    -->
-                </ul>
-
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto align-items-center">
                     <!-- Authenticated -->
                     <template v-if="user">
                         <li class="nav-item">
@@ -31,7 +25,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark"
+                            <a class="nav-link dropdown-toggle"
                                href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             >
                                 <fa icon="user" fixed-width/>
@@ -95,7 +89,5 @@
 </script>
 
 <style scoped>
-    .navbar {
-        background: #fcf9ec;
-    }
+
 </style>
