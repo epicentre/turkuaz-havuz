@@ -1,8 +1,12 @@
 <template>
     <div>
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <button type="button" class="btn btn-primary" @click="$router.go(-1)">Geri</button>
+                <button type="button" class="btn btn-success" @click="localPrint(poolRecord.id)">
+                    <fa icon="print" />
+                    Yazdır
+                </button>
             </div>
             <div class="card-body">
                 <h5>Fiş No: {{ poolRecord.voucher_no }}</h5>
@@ -29,6 +33,7 @@
             </div>
         </div>
 
+        <pool-record-print ref="print" :print-data="poolRecord" />
     </div>
 </template>
 
@@ -48,6 +53,9 @@
         }),
 
         methods: {
+            localPrint(poolRecord) {
+                this.$refs.print.print();
+            },
             ...mapActions({
                 fetchRecordFromId: 'poolRecords/fetchRecordFromId',
             }),

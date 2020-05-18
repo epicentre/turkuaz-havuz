@@ -14,7 +14,7 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <label>Fiş No</label>
-                        <input type="text" class="form-control mx-sm-3" v-model="localSearchText">
+                        <input type="text" class="form-control mx-sm-3" v-model="localSearchText" v-on:keyup.enter="fetchPoolRecords({page: 1, searchText: localSearchText })">
                     </div>
                     <button type="button" class="btn btn-primary" @click="fetchPoolRecords({page: 1, searchText: localSearchText })">Ara</button>
                     <button type="button" class="btn btn-danger ml-2" @click="resetSearchText">Sıfırla</button>
@@ -28,7 +28,8 @@
                         <th scope="col">Kişi Sayısı</th>
                         <th scope="col">Toplam Fiyat</th>
                         <th scope="col">Gün</th>
-                        <th scope="col">İşlemler</th>
+                        <th scope="col" style="width: 200px;">Görüntüle</th>
+                        <th scope="col" style="width: 200px;">İşlemler</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,7 +40,12 @@
                         <td>{{ poolRecord.day }}</td>
                         <td>
                             <router-link :to="{name: 'poolRecordShow', params: {id: poolRecord.id}}" class="btn btn-primary">Görüntüle</router-link>
-                            <button type="button" class="btn btn-success" @click="localPrint(poolRecord.id)">Yazdır</button>
+                            <button type="button" class="btn btn-success" @click="localPrint(poolRecord.id)">
+                                <fa icon="print" />
+                                Yazdır
+                            </button>
+                        </td>
+                        <td>
                             <button v-if="poolRecord.status === 0" class="btn btn-warning" @click="localUpdatePoolRecord(poolRecord.id)">Çıkış Yap</button>
                             <button class="btn btn-danger" @click="showDeleteModal(poolRecord)">Sil</button>
                         </td>
