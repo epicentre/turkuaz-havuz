@@ -51,6 +51,7 @@
     import Form from 'vform';
 
     export default {
+        layout: 'default',
         middleware: 'guest',
 
         metaInfo() {

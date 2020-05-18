@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex justify-content-center align-items-center">
-        <div class="top-right links">
+        <div class="top-right">
             <template v-if="authenticated">
-                <router-link class="btn btn-outline-secondary text-white p-2" :to="{ name: 'home' }">
+                <router-link class="btn btn-lg btn-outline-secondary text-white" :to="{ name: 'home' }">
                     {{ $t('home') }}
                 </router-link>
             </template>
             <template v-else>
-                <router-link class="btn btn-lg btn-outline-secondary text-white p-2" :to="{ name: 'login' }">
+                <router-link class="btn btn-lg btn-outline-secondary text-white" :to="{ name: 'login' }">
                     {{ $t('login') }}
                 </router-link>
             </template>
