@@ -1,13 +1,13 @@
 <template>
-    <div>
+    <div class="d-flex justify-content-center align-items-center">
         <div class="top-right links">
             <template v-if="authenticated">
-                <router-link class="btn btn-primary text-white p-2" :to="{ name: 'home' }">
+                <router-link class="btn btn-outline-secondary text-white p-2" :to="{ name: 'home' }">
                     {{ $t('home') }}
                 </router-link>
             </template>
             <template v-else>
-                <router-link class="btn btn-primary text-white p-2" :to="{ name: 'login' }">
+                <router-link class="btn btn-lg btn-outline-secondary text-white p-2" :to="{ name: 'login' }">
                     {{ $t('login') }}
                 </router-link>
             </template>
@@ -15,7 +15,7 @@
 
         <div class="text-center">
             <div class="title mb-4">
-                {{ title }}
+                Turkuaz Havuz
             </div>
         </div>
     </div>
@@ -31,10 +31,6 @@
             return {title: this.$t('home')}
         },
 
-        data: () => ({
-            title: 'Turkuaz Havuz'
-        }),
-
         computed: mapGetters({
             authenticated: 'auth/check'
         })
@@ -44,7 +40,7 @@
 <style scoped>
     .top-right {
         position: absolute;
-        right: 10px;
+        right: 18px;
         top: 18px;
     }
 
