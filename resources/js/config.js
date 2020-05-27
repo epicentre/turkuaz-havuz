@@ -11,6 +11,8 @@ export const VUE_HTML_TO_PAPER_OPTIONS = {
         'scrollbars=yes'
     ],
     styles: [
-        'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
+        'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css',
+        './print.css',
+        '../print.css'
     ]
 };

@@ -1,0 +1,21 @@
+body {
+    font-size: 12px;
+    font-family:'Times New Roman',Times,serif;
+}
+
+table {
+    display: table;
+    width: 100%;
+    min-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+tr, td, th {
+    border-bottom: 1px dashed black;
+}
+
+.centered {
+    text-align: center;
+    align-content: center;
+}
