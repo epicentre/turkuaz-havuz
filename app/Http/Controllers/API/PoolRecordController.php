@@ -31,7 +31,8 @@ class PoolRecordController extends Controller
         $this->validate($request, $rules);
 
         $records = $request->records;
-        $voucher_no = date('dmy') . '-' . rand(10000, 99999);
+		$last_voucher_no = PoolRecord::latest()->pluck('voucher_no')->first() ?? 1;
+        $voucher_no = ((int)$last_voucher_no) + 1;
 
         $pool_record = [
             'voucher_no' => $voucher_no,
