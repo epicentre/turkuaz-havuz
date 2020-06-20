@@ -5,8 +5,11 @@ import i18n from './plugins/i18n';
 import App from './components/App';
 import {VUE_HTML_TO_PAPER_OPTIONS} from './config';
 import VueHtmlToPaper from 'vue-html-to-paper';
+import VueNumberInput from '@chenfengyuan/vue-number-input';
+
 
 Vue.use(VueHtmlToPaper, VUE_HTML_TO_PAPER_OPTIONS);
+Vue.use(VueNumberInput);
 
 import './plugins';
 import './components';

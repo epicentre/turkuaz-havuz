@@ -44,14 +44,14 @@
                     <div class="modal-body">
                         <customer-type-element v-for="data in formData" :key="data.id" :initial-data="data" />
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <h5>Toplam: </h5>
                             </div>
-                            <div class="col-4">
-                                <h5><b>{{ formTotal.customerCount }}</b></h5>
+                            <div class="col-6">
+                                <h4 class="text-center"><b>{{ formTotal.customerCount }}</b></h4>
                             </div>
-                            <div class="col-4">
-                                <h5><b>{{ formTotal.totalPrice }}₺</b></h5>
+                            <div class="col-3">
+                                <h4 class="text-center"><b>{{ formTotal.totalPrice }}₺</b></h4>
                             </div>
                         </div>
                     </div>
